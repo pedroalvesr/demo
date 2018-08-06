@@ -32,6 +32,7 @@ export class PessoaComponent implements OnInit {
   qtdPorPagina: number = 10;
   qtdPaginas: number;
   totalRegistro;
+  filtro;
 
   static atualizacao = new EventEmitter<any>();
 

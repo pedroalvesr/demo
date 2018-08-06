@@ -20,7 +20,7 @@ export class CadastrarComponent implements OnInit {
 
   @Input() id: string;
 
-  pessoa = {};
+  pessoa: any = {};
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(

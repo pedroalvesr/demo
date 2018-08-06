@@ -17,7 +17,7 @@ import { MensagemComponent } from './mensagem/mensagem.component';
 import { MensagemService } from './mensagem/mensagem.service';
 import { PaginarComponent } from './paginar/paginar.component';
 import { PaginarService } from './paginar/paginar.service';
-import { FilterPipe, SortByPipe } from './pipes';
+import { FilterPipe } from './pipes';
 import { CpfjPipe } from './pipe/cpf.pipe';
 import { FilaComponent } from './fila/fila.component';
 
@@ -30,7 +30,6 @@ import { FilaComponent } from './fila/fila.component';
     MensagemComponent,
     PaginarComponent,
     FilterPipe,
-    SortByPipe,
     CpfjPipe,
     FilaComponent
   ],
