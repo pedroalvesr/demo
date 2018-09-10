@@ -1,12 +1,15 @@
 import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 import { MaterializeModule } from 'angular2-materialize';
 import { NgProgressModule } from 'ngx-progressbar';
+import { NgJsonEditorModule } from 'ang-jsoneditor' 
 
 import { AppComponent } from './app.component';
 import { PessoaComponent } from './pessoa/pessoa.component';
@@ -20,7 +23,10 @@ import { PaginarService } from './paginar/paginar.service';
 import { FilterPipe } from './pipes';
 import { CpfjPipe } from './pipe/cpf.pipe';
 import { FilaComponent } from './fila/fila.component';
+import { EditarJsonComponent } from './paginas/editar-json/editar-json.component';
 
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
@@ -31,7 +37,8 @@ import { FilaComponent } from './fila/fila.component';
     PaginarComponent,
     FilterPipe,
     CpfjPipe,
-    FilaComponent
+    FilaComponent,
+    EditarJsonComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +46,11 @@ import { FilaComponent } from './fila/fila.component';
     HttpModule,
     FormsModule,
     routing,
-    NgProgressModule
+    NgProgressModule,
+    NgJsonEditorModule
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
     ServicoService, MensagemService, PaginarService
   ],
   bootstrap: [AppComponent]

@@ -7,9 +7,11 @@ import { CadastrarComponent } from './cadastrar/cadastrar.component';
 import { MensagemComponent } from './mensagem/mensagem.component';
 import { PaginarComponent } from './paginar/paginar.component';
 import { FilaComponent } from './fila/fila.component';
+import { EditarJsonComponent } from './paginas/editar-json/editar-json.component';
 
 
 const APP_ROUTES: Routes = [
+    {path: 'json', component: EditarJsonComponent},
     {path: 'fila', component: FilaComponent},
     {path: 'paginacao', component: PaginarComponent},
     {path: 'mensagem', component: MensagemComponent},
