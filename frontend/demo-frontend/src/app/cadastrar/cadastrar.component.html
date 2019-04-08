@@ -16,7 +16,8 @@
   </div>
   <div class="input-field col s8">
     <i class="material-icons prefix">fingerprint</i>
-    <input class="form-control" maxlength="11" type="text" [ngModel]="pessoa.cpf | cpf" (ngModelChange)="pessoa.cpf = $event" placeholder="CPF - 000.000.000-00" />
+    <!-- <input class="form-control" maxlength="11" type="text" [ngModel]="pessoa.cpf | cpf" (ngModelChange)="pessoa.cpf = $event" placeholder="CPF - 000.000.000-00" /> -->
+    <input class="form-control" type="text" [(ngModel)]="pessoa.cpf" cpf [textMask]="{mask: MASKS.cpf.textMask}" placeholder="CPF - 000.000.000-00" />
     <br/>
   </div>
   <div class="input-field col s8">

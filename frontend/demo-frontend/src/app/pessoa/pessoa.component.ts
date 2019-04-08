@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RouterLink } from '@angular/router/src/directives/router_link';
@@ -8,7 +9,7 @@ import { NgProgress } from 'ngx-progressbar';
 
 import { ServicoService } from './../servico/servico.service';
 import { MensagemService } from '../mensagem/mensagem.service';
-
+import { MASKS, NgBrazilValidators } from 'ng-brazil';
 
 declare var $;
 
@@ -18,6 +19,10 @@ declare var $;
   styleUrls: ['./pessoa.component.css']
 })
 export class PessoaComponent implements OnInit {
+
+  public MASKS = MASKS;
+  public formFields;
+  public form;
 
   pessoas = [
     // {nome: 'José Mario', nascimento: '1992-12-28', cpf: '254.432.234-12'},
@@ -39,11 +44,22 @@ export class PessoaComponent implements OnInit {
   constructor(private pessoaService: ServicoService,
     private route: Router,
     private mensagemService: MensagemService,
-    public ngProgress: NgProgress) { }
+    public ngProgress: NgProgress,
+    public fb: FormBuilder) {
+    this.formFields = {
+      estado: [''],
+      cpf: ['', [<any>Validators.required, <any>NgBrazilValidators.cpf]],
+      cnpj: ['', [<any>Validators.required, <any>NgBrazilValidators.cnpj]],
+      rg: ['', [<any>Validators.required, <any>NgBrazilValidators.rg]],
+      cep: ['', [<any>Validators.required, <any>NgBrazilValidators.cep]],
+      telefone: ['', [<any>Validators.required, <any>NgBrazilValidators.telefone]],
+    };
+    this.form = this.fb.group(this.formFields);
+  }
 
   ngOnInit() {
     this.mostarPessoas();
-    // this.popularPessoas();  
+    // this.popularPessoas();
   }
 
 

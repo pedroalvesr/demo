@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { ServicoService } from '../servico/servico.service';
 import { Jsonp } from '@angular/http/src/http';
 import { PessoaComponent } from '../pessoa/pessoa.component';
+import { MASKS, NgBrazilValidators } from 'ng-brazil';
 
 
 @Component({
@@ -14,9 +16,16 @@ import { PessoaComponent } from '../pessoa/pessoa.component';
 })
 export class CadastrarComponent implements OnInit {
 
+  public MASKS = MASKS;
+  public formFields;
+  public form;
+
+
   constructor(private pessoaService: ServicoService,
     private activatedRoute: ActivatedRoute,
-    private route: Router) { }
+    private route: Router,
+    public fb: FormBuilder
+    ) { }
 
   @Input() id: string;
 
@@ -30,6 +39,16 @@ export class CadastrarComponent implements OnInit {
         }
       }
     );
+
+    this.formFields = {
+      estado: [''],
+      cpf: ['', [<any>Validators.required, <any>NgBrazilValidators.cpf]],
+      cnpj: ['', [<any>Validators.required, <any>NgBrazilValidators.cnpj]],
+      rg: ['', [<any>Validators.required, <any>NgBrazilValidators.rg]],
+      cep: ['', [<any>Validators.required, <any>NgBrazilValidators.cep]],
+      telefone: ['', [<any>Validators.required, <any>NgBrazilValidators.telefone]],
+    };
+    this.form = this.fb.group(this.formFields);
   }
 
   salvarPessoa() {
