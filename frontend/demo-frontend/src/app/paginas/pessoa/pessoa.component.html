@@ -23,22 +23,24 @@
   </div>
   <table class="table table-hover responsive-table">
     <tr>
-      <th>Id</th>
-      <th>Nome</th>
-      <th>E-mail</th>
-      <th>Nascimento</th>
-      <th>CPF</th>
-      <th>Ações</th>
+      <th class="text-center">Id</th>
+      <th class="text-center">Nome</th>
+      <th class="text-center">E-mail</th>
+      <th class="text-center">Nascimento</th>
+      <th class="text-center">CPF</th>
+      <th class="text-center">Ações</th>
     </tr>
     <tr *ngFor="let cli of popularPessoas(pessoas | filter: 'nome' : filtro)">
-      <td>{{ cli.id }}</td>
-      <td>{{ cli.nome }}</td>
-      <td>{{ cli.email }}</td>
-      <td>{{ cli.nascimento | date:'dd/MM/yyyy' }}</td>
-      <td>{{ cli.cpf | cpf }}</td>
-      <td>
-        <button type="button" class="btn btn-primary btn-sm" (click)="excluirPessoa(cli)">Excluir</button>
-        <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/cadastrar', {id: cli.id}]" (click)="editarPessoa(cli)">Editar</button>
+      <td class="text-center">{{ cli.id }}</td>
+      <td class="text-left">{{ cli.nome }}</td>
+      <td class="text-left">{{ cli.email }}</td>
+      <td class="text-center">{{ cli.nascimento | date:'dd/MM/yyyy' }}</td>
+      <td class="text-center">{{ cli.cpf | cpf }}</td>
+      <td class="text-center">
+        <div>
+          <button type="button" class="btn btn-primary btn-sm space" (click)="excluirPessoa(cli)">Excluir</button>
+          <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/cadastrar', {id: cli.id}]" (click)="editarPessoa(cli)">Editar</button>
+        </div>
       </td>
     </tr>
   </table>
