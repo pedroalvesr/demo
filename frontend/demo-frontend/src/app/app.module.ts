@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
-import { MaterializeModule } from 'angular2-materialize';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgJsonEditorModule } from 'ang-jsoneditor'
 import { TextMaskModule } from 'angular2-text-mask';
