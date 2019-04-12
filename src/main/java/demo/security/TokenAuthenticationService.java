@@ -14,14 +14,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class TokenAuthenticationService {
 
-	// EXPIRATION_TIME = 10 dias
+	// EXPIRATION_TIME = 1 hora
 	static final long EXPIRATION_TIME = 3_600_000;
 	static final String SECRET = "MySecret";
 	static final String TOKEN_PREFIX = "Bearer";
 	static final String HEADER_STRING = "Authorization";
 
 	static void addAuthentication(HttpServletResponse response, String username) {
-		String JWT = Jwts.builder().setSubject(username)
+		String JWT = Jwts.builder()
+				.setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET).compact();
 

@@ -1,32 +1,36 @@
-import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
-import { Http, HttpModule, RequestOptions } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
 import { MaterializeModule } from 'angular2-materialize';
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgJsonEditorModule } from 'ang-jsoneditor'
-
-import { AppComponent } from './app.component';
-import { PessoaComponent } from './pessoa/pessoa.component';
-import { CadastrarComponent } from './cadastrar/cadastrar.component';
-import { routing } from './app.routes';
-import { ServicoService } from './servico/servico.service';
-import { MensagemComponent } from './mensagem/mensagem.component';
-import { MensagemService } from './mensagem/mensagem.service';
-import { PaginarComponent } from './paginar/paginar.component';
-import { PaginarService } from './paginar/paginar.service';
-import { FilterPipe } from './pipes';
-import { CpfjPipe } from './pipe/cpf.pipe';
-import { FilaComponent } from './fila/fila.component';
-import { EditarJsonComponent } from './paginas/editar-json/editar-json.component';
 import { TextMaskModule } from 'angular2-text-mask';
+
+import { EditarJsonComponent } from './paginas/editar-json/editar-json.component';
+import { PessoaComponent } from './paginas/pessoa/pessoa.component';
+import { CadastrarComponent } from './paginas/cadastrar/cadastrar.component';
+import { MensagemComponent } from './componentes/mensagem/mensagem.component';
+import { PaginarComponent } from './componentes/paginar/paginar.component';
+import { FilaComponent } from './paginas/fila/fila.component';
+import { FilterPipe } from './pipes/pipes';
+import { CpfjPipe } from './pipes/cpf.pipe';
 import { NgBrazil } from 'ng-brazil';
 
+import { AppComponent } from './app.component';
+import { routing } from './app.routes';
+
+import { ServicoService } from './servicos/servico.service';
+import { MensagemService } from './componentes/mensagem/mensagem.service';
+import { PaginarService } from './componentes/paginar/paginar.service';
+import { LoginComponent } from './paginas/login/login.component';
+import { LoginService } from './servicos/login.service';
+import { LoginGuard } from './guards/login.guard';
+import { LoginInterceptor } from './interceptors/login-interceptor';
 
 registerLocaleData(localePt, 'pt');
 
@@ -40,7 +44,8 @@ registerLocaleData(localePt, 'pt');
     FilterPipe,
     CpfjPipe,
     FilaComponent,
-    EditarJsonComponent
+    EditarJsonComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,9 @@ registerLocaleData(localePt, 'pt');
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-BR'},
-    ServicoService, MensagemService, PaginarService
+    ServicoService, MensagemService, PaginarService, LoginService, LoginGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: LoginInterceptor, multi: true }
+
   ],
   bootstrap: [AppComponent]
 })

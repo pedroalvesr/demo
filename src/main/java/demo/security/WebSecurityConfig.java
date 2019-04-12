@@ -1,5 +1,6 @@
 package demo.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,9 +12,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Value("${spring.profiles.active}")
+	private String profile;
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
+		
+		if(this.profile.equals("dev")) {
+			httpSecurity
+				.authorizeRequests()
+				.antMatchers("/**")
+				.permitAll()
+			.and()
+				.csrf().disable();
+		}
+		else {
 		httpSecurity.csrf().disable().authorizeRequests()
 				.antMatchers("/v2/api-docs", "/swagger-resources", "/swagger-ui.html", "/webjars/**",
 						"/swagger-resources/configuration/ui", "/swagge‌​r-ui.html",
@@ -30,11 +44,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 				// filtra outras requisições para verificar a presença do JWT no header
 				.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		}
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// cria uma conta default
-		auth.inMemoryAuthentication().withUser("admin").password("password").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
 	}
 }

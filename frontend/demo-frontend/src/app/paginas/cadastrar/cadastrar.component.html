@@ -1,0 +1,31 @@
+<!-- <footer class="page-footer"> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="col-md-8 col-md-offset-2">
+  <a routerLink="/listar">Voltar para lista de Pessoas</a>
+  <hr/>
+  <div class="input-field col s8">
+    <i class="material-icons prefix">account_circle</i>
+    <input class="form-control" type="text" [(ngModel)]="pessoa.nome" placeholder="Nome" placeholder="Ex: José Silva" />
+    <br/>
+  </div>
+  <div class="input-field col s8">
+    <i class="material-icons prefix">date_range</i>
+    <input class="form-control" type="date" [(ngModel)]="pessoa.nascimento" placeholder="Nascimento"/>
+    <br/>
+  </div>
+  <div class="input-field col s8">
+    <i class="material-icons prefix">fingerprint</i>
+    <!-- <input class="form-control" maxlength="11" type="text" [ngModel]="pessoa.cpf | cpf" (ngModelChange)="pessoa.cpf = $event" placeholder="CPF - 000.000.000-00" /> -->
+    <input class="form-control" type="text" [(ngModel)]="pessoa.cpf" cpf [textMask]="{mask: MASKS.cpf.textMask}" placeholder="CPF - 000.000.000-00" />
+    <br/>
+  </div>
+  <div class="input-field col s8">
+    <i class="material-icons prefix">mail_outline</i>
+    <input class="form-control" type="email" [(ngModel)]="pessoa.email" placeholder="meunome@gmail.com" />
+    <br/>
+  </div>
+  <div style="float: right">
+    <button class="btn btn-primary btn-block btn-sm" (click)="salvarPessoa()">Adicionar Pessoa</button>
+  </div>
+</div>
